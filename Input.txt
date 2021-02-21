@@ -1,0 +1,5 @@
+Vert Output_1.txt 3 false 223
+Hori Output_2.txt 4 true 7582
+Vert Output_3.txt 2 false 47
+Hori Output_4.txt 3 true 576
+Vert Output_5.txt 4 false 1432
