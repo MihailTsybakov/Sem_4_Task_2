@@ -30,13 +30,15 @@ CIntN* Create_CINTN(string creation_parameters, map<string, CINT_Factory*> facto
         cout << "Wrong parameters count." << endl;
         exit(-1);
     }
+    
     int output_direction;
     parsed_params[0][0] == 'H'? output_direction = 0: output_direction = 1;
     string outfile = parsed_params[1];
-    int dimension = static_cast<char>(parsed_params[2][0]) - 48;
+    int dimension = parsed_params[2][0] - 48;
     bool sign;
     parsed_params[3][0] == 't'? sign = true : sign = false;
     string digits_string = parsed_params[4];
+    
     if (output_direction == 0)
     {
         return factories["Hori"]->create_CINT(dimension, sign, digits_string, outfile);
