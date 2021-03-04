@@ -1,13 +1,5 @@
-/*
-
-3. Определить класс CIntN для работы с целыми знаковыми числами,
-состоящими lо N десятичных цифр, где N задается в конструкторе. В
-классе должны быть определены необходимые конструкторы, деструктор, операторы присваивания, сложения, вычитания.
-Написать функцию и конструктор сохранения переменной данного
-типа в файл и загрузки из файла.
-В отдельном файле должен быть написан тест на данный класс
-
-*/
+#ifndef CINTN
+#define CINTN
 
 #include <iostream>
 #include <string>
@@ -17,16 +9,17 @@
 #include <vector>
 using namespace std;
 
-#ifndef CINTN
-#define CINTN
+class CIntN0;
+class CIntN1;
+
 class CIntN
 {
 protected:
     int dimension;
     bool sign; // True = "+"
     int* digits; // Digits array
-    string pure_plus(const CIntN& num_1, const CIntN& num_2);
-    string pure_minus(const CIntN& num_1, const CIntN& num_2);
+    string pure_plus(const CIntN& num_1, const CIntN& num_2) const;
+    string pure_minus(const CIntN& num_1, const CIntN& num_2) const;
     string output_file;
 public:
     CIntN();
@@ -40,49 +33,9 @@ public:
     string out_file() const noexcept;
 
     virtual int output(string FileName) = 0;
+
+    friend CIntN0 operator+(const CIntN& first, const CIntN& second);
+    friend CIntN0 operator-(const CIntN& first, const CIntN& second);
 };
-
-class CIntN0 : public CIntN
-{
-public:
-    using CIntN::CIntN;
-    ~CIntN0();
-
-    int output(string FileName) override;
-
-    CIntN0 operator+(const CIntN0& addition);
-    CIntN0 operator-(const CIntN0& subtraction);
-};
-
-class CIntN1 : public CIntN
-{
-public:
-    using CIntN::CIntN;
-    ~CIntN1();
-
-    int output(string FileName) override;
-
-    CIntN1 operator-(const CIntN1& subtraction);
-    CIntN1 operator+(const CIntN1& addition);
-};
-
-class CINT_Factory
-{
-public:
-    virtual CIntN* create_CINT(int dimension, bool sign, string digits_string, string output_file) const noexcept = 0;
-};
-
-class Hori_Factory : public CINT_Factory
-{
-public:
-    virtual CIntN* create_CINT(int dimension, bool sign, string digits_string, string output_file) const noexcept override;
-};
-
-class Vert_Factory : public CINT_Factory
-{
-public:
-    virtual CIntN* create_CINT(int dimension, bool sign, string digits_string, string output_file) const noexcept override;
-};
-
 
 #endif  //CINTN
