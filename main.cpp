@@ -20,25 +20,19 @@ int main(int argc, char* argv[])
         exit(-1);
     }
 
-    vector<string> psvector; // parameter strings vector
-    string tmp_string;
-
-    while (getline(input_file, tmp_string))
-    {
-        psvector.push_back(tmp_string);
-    }
-
-    /// ********************************************************
-
     vector<CIntN*> CINT_vector;
     map<string, CINT_Factory*> factories;
     factories["Hori"] = new Hori_Factory;
     factories["Vert"] = new Vert_Factory;
 
-    for (vector<string>::iterator it = psvector.begin(); it != psvector.end(); ++it)
+    string tmp_string;
+
+    while (getline(input_file, tmp_string))
     {
-        CINT_vector.push_back(Create_CINTN((*it), factories));
+        CINT_vector.push_back(Create_CINTN(tmp_string, factories));
     }
+    input_file.close();
+    /// ********************************************************
 
     // Outputting
     for (vector<CIntN*>::iterator it = CINT_vector.begin(); it != CINT_vector.end(); ++it)
@@ -47,7 +41,11 @@ int main(int argc, char* argv[])
         delete (*it);
     }
 
-    input_file.close();
+    CIntN0 a(3, true, "543", "-");
+    CIntN1 b(3, false, "111", "-");
+    CIntN0 c = a-b;
+    cout << "Frankenstein assembled from CIntN0 and CIntN1: ";
+    c.print();
 
     return 0;
 }
